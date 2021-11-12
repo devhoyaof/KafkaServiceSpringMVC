@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.UUID;
 
 /**
- * @author : hoyao
- * @name : hoyao
+ * @author : KimGwangMin
+ * @name : KimGwangMin
  * <PRE>
  * </PRE>
  * @class : TestController
@@ -21,7 +21,7 @@ import java.util.UUID;
  * @History <PRE>
  * NO  Date         time          Author                                      Desc
  * --------------------------------------------------------------------------------------------------------------
- * 1   2021-11-12   오후 3:06     hoyao (hoyaof@lgupluspartners.co.kr)        최초작성
+ * 1   2021-11-12   오후 3:06     KimGwangMin (hoyaof@lgupluspartners.co.kr)        최초작성
  * </PRE>
  */
 

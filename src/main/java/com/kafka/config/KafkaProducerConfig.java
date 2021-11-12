@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Properties;
 
 /**
- * @author : hoyao
- * @name : hoyao
+ * @author : KimGwangMin
+ * @name : KimGwangMin
  * <PRE>
  * </PRE>
  * @class : KafkaProducerConfig
@@ -19,7 +19,7 @@ import java.util.Properties;
  * @History <PRE>
  * NO  Date         time          Author                                      Desc
  * --------------------------------------------------------------------------------------------------------------
- * 1   2021-11-12   오후 2:49     hoyao (hoyaof@lgupluspartners.co.kr)        최초작성
+ * 1   2021-11-12   오후 2:49     KimGwangMin (hoyaof@lgupluspartners.co.kr)        최초작성
  * </PRE>
  */
 
