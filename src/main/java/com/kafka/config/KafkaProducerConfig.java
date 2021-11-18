@@ -30,19 +30,20 @@ public class KafkaProducerConfig {
 	KafkaProducer<String, String> producer;
 
 	@Bean
-	public KafkaProducer<String, String> kafkaSetting() {
-		Properties properties = new Properties();
-		properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-		properties.setProperty(ProducerConfig.ACKS_CONFIG, "all");
-		properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-		properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-		properties.setProperty(ProducerConfig.RETRIES_CONFIG, "0");
-		properties.setProperty(ProducerConfig.BATCH_SIZE_CONFIG, "16384");
-		properties.setProperty(ProducerConfig.LINGER_MS_CONFIG, "0");
-		properties.setProperty(ProducerConfig.BUFFER_MEMORY_CONFIG, "33554432");
+	public KafkaProducer<String, String> producerSetting() {
+		Properties props = new Properties();
+		props.setProperty(ProducerConfig.CLIENT_ID_CONFIG, "nex_grid");
+		props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9090,localhost:9091,localhost:9092");
+		props.setProperty(ProducerConfig.ACKS_CONFIG, "all");
+		props.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+		props.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+		props.setProperty(ProducerConfig.RETRIES_CONFIG, "0");
+		props.setProperty(ProducerConfig.BATCH_SIZE_CONFIG, "16384");
+		props.setProperty(ProducerConfig.LINGER_MS_CONFIG, "0");
+		props.setProperty(ProducerConfig.BUFFER_MEMORY_CONFIG, "33554432");
 
 		// Producer 객체 생성
-		producer = new KafkaProducer<String, String>(properties);
+		producer = new KafkaProducer<String, String>(props);
 		return producer;
 	}
 

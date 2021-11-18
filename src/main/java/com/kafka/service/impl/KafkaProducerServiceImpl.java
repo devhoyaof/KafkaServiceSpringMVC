@@ -5,11 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kafka.config.KafkaProducerConfig;
 import com.kafka.service.KafkaProducerService;
 import com.kafka.utils.DateUtil;
+import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
@@ -39,6 +42,11 @@ public class KafkaProducerServiceImpl implements KafkaProducerService {
 	private KafkaProducerConfig kafkaProducerConfig;
 
 
+	/**
+	 * @param message
+	 * @param callUUID
+	 * @throws JsonProcessingException
+	 */
 	@Override
 	public void producer(String message, String callUUID) throws JsonProcessingException {
 		String topic = "from_adcb_adcbdatacreated_message";
@@ -56,12 +64,28 @@ public class KafkaProducerServiceImpl implements KafkaProducerService {
 		record.headers().add("X-Global-Transation-ID", callUUID.getBytes(StandardCharsets.UTF_8));
 
 		try {
-			kafkaProducerConfig.kafkaSetting().send(record);
+			kafkaProducerConfig.producerSetting().send(record, new KafkaCallback());
 			log.info(" kafka Message Info => {} ", String.valueOf(record));
-
-			kafkaProducerConfig.kafkaSetting().close();
+			kafkaProducerConfig.producerSetting().close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * KafkaCallBack method create
+	 */
+	class KafkaCallback implements Callback {
+		@Override
+		public void onCompletion(RecordMetadata metadata, Exception exception) {
+			if(!ObjectUtils.isEmpty(metadata)) {
+				System.err.println("===========================================================");
+				log.info("Partition: {}, Offset: {}, " ,metadata.partition(), metadata.offset());
+			} else {
+				log.error("KafkaCallback - Exception");
+				// Todo
+				// 스케쥴러 서비스 들어갈 예정 [방식 확정 x]
+			}
 		}
 	}
 }
