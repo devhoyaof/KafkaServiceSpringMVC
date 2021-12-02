@@ -2,11 +2,30 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       xmlns:task="http://www.springframework.org/schema/task" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/task
+                           http://www.springframework.org/schema/task/spring-task.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<!-- Properties     ============================================================================================ -->
+	<util:properties id="kafkaProp" location="classpath:kafka.properties"/>
+
+	<task:scheduler id="myScheduler" pool-size="10"/>
+
+		<task:scheduled-tasks scheduler="myScheduler">
+			<task:scheduled ref="anotherObject" method="loadIpAddress" cron="0 */30 * * * *"/>
+		</task:scheduled-tasks>
+
 
 	<context:annotation-config/>
 
+	<context:component-scan base-package="com.kafka" />
+
+	<!--<context:component-scan base-package="com.kafka.dao"/>
 	<context:component-scan base-package="com.kafka.config" />
-	<context:component-scan base-package="com.kafka.service" />
+	<context:component-scan base-package="com.kafka.service" />-->
 
 </beans>

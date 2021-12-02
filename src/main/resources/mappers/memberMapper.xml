@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kafka.mapper.MemberMapper">
+
+	<select id="getTime" resultType="string">
+		select NOW()
+	</select>
+
+	<select id="kafkaEaiSdw" resultType="com.kafka.domain.Eai">
+        <![CDATA[
+        SELECT
+        	cmd,
+        	NEW_REQUEST_ID as newRequestId,
+        	NEW_ACCOUNT_TYPE as newAccountType,
+		  	NEW_PAYMENT_CODE as newPayMentCode,
+		  	NEW_PRODUCT_NAME as newProductName,
+		  	NEW_MULTI_CODE as newMultiCode,
+		  	NEW_SMLS_STLM_DV_CD as newSmlsStlmDvCd,
+		  	NEW_SMLS_STLM_CMPNY_CD as newSmlsStmlCmpnyCd,
+		  	NEW_BAN as newBan,
+		  	NEW_ACE_NO as newAceNo,
+		  	NEW_PROD_NO as newProdNo,
+		  	NEW_EVENT_YYMM as newEventYymm,
+		  	NEW_TOT_AMT as newTotAmt,
+		  	NEW_PURCHASE_DT as newPurchaseDt,
+		  	NEW_TRANSACTION_DT as newTransactionDt,
+		  	NEW_SELER_COMPANY as newSelerCompany,
+		  	NEW_PRODUCT_ID as newProductId,
+		  	NEW_PRODUCT_PRICE as newProductPrice,
+		  	NEW_PRODUCT_TAX as newProductTax,
+		  	NEW_SELLER_NAME as newSellerName,
+		  	NEW_SELLER_EMAIL as newSellerEmail,
+		  	ANEW_SELLER_PHONE as anewSellerPhone,
+		  	NEW_SELLER_REG_NUMBER as newSellerRegNumber,
+		  	NEW_PAYMENT_NAME as newPaymentName,
+		  	NEW_PURCHASE_ID as newPurchaseId,
+		  	NEW_PRF_REQUEST_ID as newPrfRequestId,
+		  	NEW_PURCHASE_GEN as newPurchaseGen,
+		  	NEW_UNIT_IP as newUnitIp,
+		  	NEW_MAC as newMac,
+		  	NEW_PROVISIONING_TIME as newProvisioningTime,
+		  	NEW_TOPMENUID as newTopmenuid,
+		  	NEW_PRODTYPE as newProdtype,
+		  	kafka_result
+        FROM tb_sdcb_voc_eai_sdw
+        WHERE NOT kafka_result = 'Y'
+        LIMIT 0, 3000;
+        ]]>
+    </select>
+
+	<update id="eaiColumnUpdate" parameterType="com.kafka.domain.Eai">
+		UPDATE
+			tb_sdcb_voc_eai_sdw
+		SET
+			kafka_result = 'Y'
+		WHERE
+			NEW_REQUEST_ID = #{newRequestId}
+	</update>
+
+
+	<insert id="insertData">
+		INSERT INTO tb_sdcb_voc_eai_sdw
+		VALUES (
+			#{cmd},
+			#{newRequestId},
+			#{newAccountType},
+			#{newPayMentCode},
+			#{newProductName},
+			#{newMultiCode},
+			#{newSmlsStlmDvCd},
+			#{newSmlsStmlCmpnyCd},
+			#{newBan},
+			#{newAceNo},
+			#{newProdNo},
+			#{newEventYymm},
+			#{newTotAmt},
+			NOW(),
+			NOW(),
+			#{newSelerCompany},
+			#{newProductId},
+			#{newProductPrice},
+			#{newProductTax},
+			#{newSellerName},
+			#{newSellerEmail},
+			#{anewSellerPhone},
+			#{newSellerRegNumber},
+			#{newPaymentName},
+			#{newPurchaseId},
+			#{newPrfRequestId},
+			#{newPurchaseGen},
+			#{newUnitIp},
+			#{newMac},
+			NOW(),
+			#{newTopmenuid},
+			#{newProdtype},
+			#{kafkaResult}
+		)
+	</insert>
+
+
+</mapper>
