@@ -1,6 +1,7 @@
 package com.kafka.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.kafka.domain.Eai;
 import org.springframework.http.ResponseEntity;
 
 /**
@@ -19,8 +20,11 @@ import org.springframework.http.ResponseEntity;
 
 public interface KafkaProducerService {
 
-	ResponseEntity<Object> producer(String message, String callUUID) throws JsonProcessingException;
+
 
 	void getEaiList(String callUUID) throws JsonProcessingException;
 
+	ResponseEntity<Object> producer(Eai eai, String callUUID) throws JsonProcessingException;
+
+	ResponseEntity<Object> reqSend(Eai eais, String callUUID) throws Exception;
 }

@@ -16,7 +16,7 @@
 	<task:scheduler id="myScheduler" pool-size="10"/>
 
 		<task:scheduled-tasks scheduler="myScheduler">
-			<task:scheduled ref="anotherObject" method="loadIpAddress" cron="0 */30 * * * *"/>
+			<task:scheduled ref="anotherObject" method="loadIpAddress" cron="0 * 3 * * *"/>
 		</task:scheduled-tasks>
 
 

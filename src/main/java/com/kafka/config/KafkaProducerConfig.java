@@ -33,14 +33,10 @@ public class KafkaProducerConfig {
 	@Autowired
 	Properties kafkaProp;
 
-//	@Autowired
-//	private KafkaProperties kafkaProperties;
-
 	public KafkaProducer<String, String> producerSetting() {
 		Properties props = new Properties();
 		props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProp.getProperty("kafka.server"));
 		props.setProperty(ProducerConfig.MAX_BLOCK_MS_CONFIG, kafkaProp.getProperty("kafka.max_block_ms_config"));
-		props.setProperty(ProducerConfig.COMPRESSION_TYPE_CONFIG, kafkaProp.getProperty("kafka.compression_type_config"));
 		props.setProperty(ProducerConfig.MAX_REQUEST_SIZE_CONFIG, kafkaProp.getProperty("kafka.max_request_size_config"));
 		props.setProperty(ProducerConfig.ACKS_CONFIG, kafkaProp.getProperty("kafka.acks_config"));
 		props.setProperty(ProducerConfig.RETRIES_CONFIG, kafkaProp.getProperty("kafka.retries_config"));
@@ -49,16 +45,6 @@ public class KafkaProducerConfig {
 		props.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 		props.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
-//		props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBootstrapServers());
-//		props.setProperty(ProducerConfig.MAX_BLOCK_MS_CONFIG, kafkaProperties.getMaxBlockSsConfig());
-//		props.setProperty(ProducerConfig.COMPRESSION_TYPE_CONFIG, kafkaProperties.getCompressionTypeConfig());
-//		props.setProperty(ProducerConfig.MAX_REQUEST_SIZE_CONFIG, kafkaProperties.getMaxRequestSizeConfig());
-//		props.setProperty(ProducerConfig.ACKS_CONFIG, kafkaProperties.getAcksConfig());
-//		props.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-//		props.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-//		props.setProperty(ProducerConfig.RETRIES_CONFIG, kafkaProperties.getRetriesConfig());
-//		props.setProperty(ProducerConfig.LINGER_MS_CONFIG, kafkaProperties.getLingerMsConfig());
-//		props.setProperty(ProducerConfig.BUFFER_MEMORY_CONFIG, kafkaProperties.getBufferMemoryConfig());
 
 		// Producer 객체 생성
 		KafkaProducer<String, String> producer = new KafkaProducer<String, String>(props);

@@ -12,7 +12,6 @@
 	<select id="kafkaEaiSdw" resultType="com.kafka.domain.Eai">
         <![CDATA[
         SELECT
-        	cmd,
         	NEW_REQUEST_ID as newRequestId,
         	NEW_ACCOUNT_TYPE as newAccountType,
 		  	NEW_PAYMENT_CODE as newPayMentCode,
@@ -33,11 +32,12 @@
 		  	NEW_PRODUCT_TAX as newProductTax,
 		  	NEW_SELLER_NAME as newSellerName,
 		  	NEW_SELLER_EMAIL as newSellerEmail,
+		  	NEW_SELLER_ADDRESS as newSellerAddress,
 		  	ANEW_SELLER_PHONE as anewSellerPhone,
 		  	NEW_SELLER_REG_NUMBER as newSellerRegNumber,
 		  	NEW_PAYMENT_NAME as newPaymentName,
 		  	NEW_PURCHASE_ID as newPurchaseId,
-		  	NEW_PRF_REQUEST_ID as newPrfRequestId,
+		  	NEW_PRF_REQUEST_ID as newPreRequestId,
 		  	NEW_PURCHASE_GEN as newPurchaseGen,
 		  	NEW_UNIT_IP as newUnitIp,
 		  	NEW_MAC as newMac,
@@ -47,7 +47,7 @@
 		  	kafka_result
         FROM tb_sdcb_voc_eai_sdw
         WHERE NOT kafka_result = 'Y'
-        LIMIT 0, 3000;
+        LIMIT 0, 5;
         ]]>
     </select>
 
